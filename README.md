@@ -1,2 +1,2 @@
 # oop-projects
-Multiple OOP projects built using .NET, Java, and Python for university final exam.
+Multiple OOP applications built using .NET, Java, and Python for university final project.
