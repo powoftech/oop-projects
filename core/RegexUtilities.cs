@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Banking
 {
-    internal class RegexUtilities
+    class RegexUtilities
     {
         public static bool IsValidEmail(string email)
         {
@@ -13,7 +13,8 @@ namespace Banking
             try
             {
                 // Normalize the domain
-                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper, RegexOptions.None, TimeSpan.FromMilliseconds(200));
+                email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
 
                 // Examines the domain part of the email and normalizes it.
                 string DomainMapper(Match match)
@@ -35,6 +36,7 @@ namespace Banking
             {
                 return false;
             }
+
             try
             {
                 return Regex.IsMatch(email,
@@ -46,5 +48,14 @@ namespace Banking
                 return false;
             }
         }
+        public static bool IsValidPhoneNumber(string phoneNumber)  // Vietnam phone number format only
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return false;
+
+            return Regex.IsMatch(phoneNumber,
+            @"^([\+]?84[-]?|[0])?[1-9][0-9]{8}$");
+        }
     }
+
 }

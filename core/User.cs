@@ -2,20 +2,28 @@ namespace Banking
 {
     public class User
     {
-
+        // Fields & properties
         private string username;
         private string password;
-        private bool enabled;
 
-        private User()
+        // Constructors
+        public User()
         {
+            username = string.Empty;
+            password = string.Empty;
         }
-        private User(string username, string password)
+        public User(string username, string password)
         {
             this.username = username;
             this.password = password;
         }
 
+        // Destructors
+        ~User()
+        {
+        }
+
+        // Methods
 
     }
 }
