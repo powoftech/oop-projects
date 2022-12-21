@@ -10,45 +10,54 @@ namespace Banking
     {
         static public void SavingsAccount()
         {
-            Console.WriteLine("1. 3 months: 3.0%/year");
-            Console.WriteLine("2. 6 months: 5.7%/year");
-            Console.WriteLine("3. 12 months: 6.2%/year");
-            Double amount = Double.MinValue;
+            Double depositAmount = Double.MinValue;
+            Double term = Double.MinValue;
+            Double interestRates = Double.MinValue;
+            Double estimatedInterest = Double.MinValue;
+            String doubleString = String.Empty;
+
             do
             {
-                Console.WriteLine("Enter ")
-            } while (amount == Double.MinValue);
+                Console.WriteLine("\nEnter the deposit amount: ");
+                doubleString = Console.ReadLine()!;
+                if (!RegexUtilities.IsValidDouble(doubleString))
+                {
+                    Console.WriteLine("Retry...");
+                }
+                else
+                {
+                    depositAmount = Double.Parse(doubleString);
+                }
+            } while (depositAmount == Double.MinValue);
+            do
+            {
+                Console.WriteLine("\nEnter the term deposit (months): ");
+                doubleString = Console.ReadLine()!;
+                if (!RegexUtilities.IsValidDouble(doubleString))
+                {
+                    Console.WriteLine("Retry...");
+                }
+                else
+                {
+                    term = Double.Parse(doubleString);
+                }
+            } while (term == Double.MinValue);
+            do
+            {
+                Console.WriteLine("\nEnter the interest rates (%/Year): ");
+                doubleString = Console.ReadLine()!;
+                if (!RegexUtilities.IsValidDouble(doubleString))
+                {
+                    Console.WriteLine("Retry...");
+                }
+                else
+                {
+                    interestRates = Double.Parse(doubleString);
+                }
+            } while (interestRates == Double.MinValue);
 
+            estimatedInterest = depositAmount * interestRates / 100 * term / 12;
+            Console.WriteLine("Estimated interest: ", estimatedInterest);
         }
-        // public void Input()
-        // {
-        //     User user = new User();
-        //     user.Input();
-        //     this.uUser = user;
-
-        // }
-        // public void EstimatedOutcome()
-        // {
-        //     Console.WriteLine("How much money do you want to deposit into a savings account: ");
-        //     this.dAmount = double.Parse(Console.ReadLine());
-        //     Console.WriteLine("How long do you want to choose: ");
-        //     
-        //     int opt = 0;
-        //     opt = int.Parse(Console.ReadLine());
-        //     if (opt == 1)
-        //     {
-        //         this.dAmount += this.dAmount * 3 / 100 * 90 / 365;
-        //         Console.WriteLine($"Estimated Outcome: {this.dAmount}");
-        //     }
-        //     else if (opt == 2)
-        //     {
-        //         this.dAmount += this.dAmount * 5.7 / 100 * 180 / 365;
-        //         Console.WriteLine($"Estimated Outcome: {this.dAmount}");
-        //     }
-        //     else if (opt == 3)
-        //     {
-        //         this.dAmount += this.dAmount * 6.2 / 100;
-        //         Console.WriteLine($"Estimated Outcome: {this.dAmount}");
-        //     }
     }
 }
