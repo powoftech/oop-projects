@@ -136,6 +136,93 @@ namespace Banking
         {
         }
 
+        public void Input()
+        {
+            //this.sName = Console.ReadLine();
+            //this.sID = Console.ReadLine();
+            //string tmp = Console.ReadLine();
+            //this.daBirthday = Convert.ToDateTime(tmp);
+            //this.dAccountBalance = double.Parse(Console.ReadLine());
+        }
+        public void Output()
+        {
+            Console.WriteLine($"ID: {this.id}");
+            Console.WriteLine($"Name: {this.name}");
+            Console.WriteLine($"Email address: {this.email}");
+            Console.WriteLine($"BirthDay: {this.dateOfBirth.ToString("MM/dd/yyyy")}");
+            Console.WriteLine($"Account balance: {this.balance}");
+            Console.WriteLine($"Registration date: {this.registrationDate.ToString("MM/dd/yyyy")}");
+            if (this.cards.Count != 0)
+            {
+                Console.WriteLine("Export cards' information... ");
+                Int32 index = 0;
+                this.cards.ForEach(delegate (Card card)
+                {
+                    Console.WriteLine($"Card #{++index}:");
+                    card.ExportInformation();
+                });
+            }
+            else
+            {
+                Console.WriteLine("This user doesn't have any card yet!");
+            }
+        }
+
+        public void Deposit()
+        {
+            String doubleString = String.Empty;
+            Double depositAmount = Double.MinValue;
+            do
+            {
+                Console.WriteLine("\nEnter the deposit amount: ");
+                doubleString = Console.ReadLine()!;
+                if (!RegexUtilities.IsValidDouble(doubleString))
+                {
+                    Console.WriteLine("Retry...");
+                }
+                else
+                {
+                    depositAmount = Double.Parse(doubleString);
+                }
+            } while (depositAmount == Double.MinValue);
+
+            this.balance += depositAmount;
+            Transaction newTransaction = new Transaction(depositAmount, "Yourself", "Deposit");
+            this.transactionHistory.Add(newTransaction);
+        }
+
+        public void Withdraw()
+        {
+            String doubleString = String.Empty;
+            Double withdrawAmount = Double.MinValue;
+            do
+            {
+                Console.WriteLine("\nEnter the withdraw amount: ");
+                doubleString = Console.ReadLine()!;
+                if (!RegexUtilities.IsValidDouble(doubleString))
+                {
+                    Console.WriteLine("Retry...");
+                }
+                else
+                {
+                    withdrawAmount = Double.Parse(doubleString);
+                }
+            } while (withdrawAmount == Double.MinValue);
+
+            this.balance -= withdrawAmount;
+            Transaction newTransaction = new Transaction(-withdrawAmount, "Yourself", "Withdraw");
+            this.transactionHistory.Add(newTransaction);
+        }
+        public void ExportTransactionHistory()
+        {
+            Int32 index = 0;
+            this.transactionHistory.ForEach(delegate (Transaction transaction)
+            {
+                Console.WriteLine($"Transaction #{++index}:");
+                transaction.Output();
+            });
+        }
+
         public static bool operator ==(User left, User right)
         {
             return

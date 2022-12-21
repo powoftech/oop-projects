@@ -56,7 +56,6 @@ namespace Banking
                             {
                                 beneficiaryIndex = user.index;
                                 newTransaction.Beneficiary = beneficiaryName;
-                                newTransaction.Type = "Name";
                             }
                         }
                         if (beneficiaryIndex == Int32.MinValue)
@@ -92,7 +91,6 @@ namespace Banking
                             {
                                 beneficiaryIndex = user.index;
                                 newTransaction.Beneficiary = beneficiaryID;
-                                newTransaction.Type = "ID";
                             }
                         }
                         if (beneficiaryIndex == Int32.MinValue)
@@ -119,7 +117,6 @@ namespace Banking
                                 {
                                     beneficiaryIndex = user.index;
                                     newTransaction.Beneficiary = beneficiaryCardNumber;
-                                    newTransaction.Type = "Card number";
                                 }
                             });
                         }
@@ -158,11 +155,12 @@ namespace Banking
                 else
                 {
                     amount = Double.Parse(amountString);
-                    newTransaction.Amount = amount;
+                    newTransaction.Amount = -amount;
                 }
             } while (amount != Double.MinValue);
 
             newTransaction.Date = DateTime.Now;
+            newTransaction.Type = "Transfer";
             Bank.GetUsers()[currentUser].AddTransaction(newTransaction);
             Bank.GetUsers()[beneficiaryIndex].AddBalance(amount);
             Console.WriteLine("\nTransfer successfully!");

@@ -36,7 +36,7 @@ namespace Banking
         public Transaction()
         {
         }
-        
+
         public Transaction(Double amount, String beneficiary, String type)
         {
             this.date = DateTime.Now;
@@ -57,7 +57,10 @@ namespace Banking
         }
         public void Output()
         {
-
+            Console.WriteLine($"  Date: {this.Date.ToString()}");
+            Console.WriteLine($"  Amount: {this.Amount}");
+            Console.WriteLine($"  Beneficiary: {this.Beneficiary}");
+            Console.WriteLine($"  Type: {this.Type}");
         }
     }
 }
