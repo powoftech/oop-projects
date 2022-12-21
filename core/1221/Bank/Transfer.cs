@@ -4,7 +4,7 @@ namespace Banking
     {
         static public void Transfer()
         {
-            if (Bank.GetStatus() == Status.Logout)
+            if (Bank.GetStatus() == Status.LoggedOut)
             {
                 Console.WriteLine("You are not logged in.\nPlease log in and try again.");
                 Console.WriteLine("\nTransfer cancelled!");
@@ -12,8 +12,8 @@ namespace Banking
             }
 
             Transaction newTransaction = new Transaction();
-            bool showMenu = true;
-            bool conflicted = false;
+            Boolean showMenu = true;
+            Boolean conflicted = false;
             Int32 beneficiaryIndex = Int32.MinValue;
 
             while (showMenu)
@@ -42,7 +42,7 @@ namespace Banking
                                 beneficiaryName = String.Empty;
                                 conflicted = true;
                             }
-                            else if (beneficiaryName == Bank.GetUsers()[currentUser].GetName())
+                            else if (beneficiaryName == Bank.GetCurrentUser().GetName())
                             {
                                 Console.WriteLine("Cannot transfer to yourselves!\nRetry...");
                                 beneficiaryName = String.Empty;
@@ -62,6 +62,7 @@ namespace Banking
                         {
                             Console.WriteLine("This name has not been registered!\nTry again...");
                             showMenu = true;
+                            Console.ReadKey(false);
                         }
                         else
                         {
@@ -77,11 +78,12 @@ namespace Banking
                             beneficiaryID = Console.ReadLine()!;
                             conflicted = false;
 
-                            if (beneficiaryID == Bank.GetUsers()[currentUser].GetID())
+                            if (beneficiaryID == Bank.GetCurrentUser().GetID())
                             {
                                 Console.WriteLine("Cannot transfer to yourselves!\nRetry...");
                                 beneficiaryID = String.Empty;
                                 conflicted = true;
+                                Console.ReadKey(false);
                             }
                         } while (conflicted);
 
@@ -97,6 +99,7 @@ namespace Banking
                         {
                             Console.WriteLine("This ID was not in correct format or has not been registered!\nTry again...");
                             showMenu = true;
+                            Console.ReadKey(false);
                         }
                         else
                         {
@@ -124,6 +127,7 @@ namespace Banking
                         {
                             Console.WriteLine("This card number was not in correct format or has not been registered!\nTry again...");
                             showMenu = true;
+                            Console.ReadKey(false);
                         }
                         else
                         {
@@ -139,11 +143,14 @@ namespace Banking
                     default:
                         Console.WriteLine("\nInvalid input!\nTry again...");
                         showMenu = true;
+                        Console.ReadKey(false);
+
                         break;
                 }
+
             }
 
-            Double amount = Double.MinValue;
+            Double transferAmount = Double.MinValue;
             do
             {
                 Console.Write("Enter the amount: ");
@@ -154,15 +161,22 @@ namespace Banking
                 }
                 else
                 {
-                    amount = Double.Parse(amountString);
-                    newTransaction.Amount = -amount;
+                    transferAmount = Double.Parse(amountString);
+                    if (transferAmount > Bank.GetCurrentUser().GetBalance())
+                    {
+                        Console.WriteLine("The balance is not sufficient for this process.");
+                        Console.WriteLine("Retry...");
+                        transferAmount = Double.MinValue;
+                    }
+                    else
+                        newTransaction.Amount = -transferAmount;
                 }
-            } while (amount != Double.MinValue);
+            } while (transferAmount == Double.MinValue);
 
             newTransaction.Date = DateTime.Now;
             newTransaction.Type = "Transfer";
-            Bank.GetUsers()[currentUser].AddTransaction(newTransaction);
-            Bank.GetUsers()[beneficiaryIndex].AddBalance(amount);
+            Bank.GetCurrentUser().AddTransaction(newTransaction);
+            Bank.GetUsers()[beneficiaryIndex].AddBalance(transferAmount);
             Console.WriteLine("\nTransfer successfully!");
         }
     }

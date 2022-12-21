@@ -7,7 +7,7 @@ using Banking;
 
 namespace Banking
 {
-    public class Card
+    public class Card : IExportable
     {
         private DateTime creationDate = DateTime.MinValue;
         private DateTime expirationDate = DateTime.MinValue;
@@ -67,12 +67,19 @@ namespace Banking
 
             }
         }
-        internal void ExportInformation()
+        // internal void ExportInformation()
+        // {
+        //     Console.WriteLine("    Sub bank: ", this.subBank.GetName());
+        //     Console.WriteLine("    Card number: ", this.cardNumber);
+        //     Console.WriteLine("    Creation date: ", this.creationDate.ToString("MM/yyyy"));
+        //     Console.WriteLine("    Expiration date: ", this.expirationDate.ToString("MM/yyyy"));
+        // }
+        void IExportable.ExportInformation()
         {
-            Console.WriteLine("  Sub bank: ", this.subBank.GetName());
-            Console.WriteLine("  Card number: ", this.cardNumber);
-            Console.WriteLine("  Creation date: ", this.creationDate.ToString("MM/yyyy"));
-            Console.WriteLine("  Expiration date: ", this.expirationDate.ToString("MM/yyyy"));
+            Console.WriteLine("    Sub bank: ", this.subBank.GetName());
+            Console.WriteLine("    Card number: ", this.cardNumber);
+            Console.WriteLine("    Creation date: ", this.creationDate.ToString("MM/yyyy"));
+            Console.WriteLine("    Expiration date: ", this.expirationDate.ToString("MM/yyyy"));
         }
     }
 }

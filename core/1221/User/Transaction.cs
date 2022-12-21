@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Banking
 {
-    public class Transaction
+    public class Transaction : IExportable
     {
         private DateTime date = DateTime.MinValue;
         private Double amount;
@@ -55,7 +55,7 @@ namespace Banking
             this.beneficiary = beneficiary;
             this.type = type;
         }
-        public void Output()
+        void IExportable.ExportInformation()
         {
             Console.WriteLine($"  Date: {this.Date.ToString()}");
             Console.WriteLine($"  Amount: {this.Amount}");

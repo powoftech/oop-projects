@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace Banking
     {
         static public void SavingsAccount()
         {
+            Console.Clear();
             Double depositAmount = Double.MinValue;
             Double term = Double.MinValue;
             Double interestRates = Double.MinValue;
@@ -18,7 +20,7 @@ namespace Banking
 
             do
             {
-                Console.WriteLine("\nEnter the deposit amount: ");
+                Console.Write("Enter the deposit amount: ");
                 doubleString = Console.ReadLine()!;
                 if (!RegexUtilities.IsValidDouble(doubleString))
                 {
@@ -31,7 +33,7 @@ namespace Banking
             } while (depositAmount == Double.MinValue);
             do
             {
-                Console.WriteLine("\nEnter the term deposit (months): ");
+                Console.Write("Enter the term deposit (months): ");
                 doubleString = Console.ReadLine()!;
                 if (!RegexUtilities.IsValidDouble(doubleString))
                 {
@@ -44,7 +46,7 @@ namespace Banking
             } while (term == Double.MinValue);
             do
             {
-                Console.WriteLine("\nEnter the interest rates (%/Year): ");
+                Console.Write("Enter the interest rates (%/year): ");
                 doubleString = Console.ReadLine()!;
                 if (!RegexUtilities.IsValidDouble(doubleString))
                 {
@@ -57,7 +59,8 @@ namespace Banking
             } while (interestRates == Double.MinValue);
 
             estimatedInterest = depositAmount * interestRates / 100 * term / 12;
-            Console.WriteLine("Estimated interest: ", estimatedInterest);
+
+            Console.WriteLine("Estimated interest: " + estimatedInterest.ToString("N", CultureInfo.InvariantCulture));
         }
     }
 }

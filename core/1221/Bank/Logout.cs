@@ -9,7 +9,7 @@ namespace Banking
     {
         static public void Logout()
         {
-            if (Bank.GetStatus() == Status.Logout)
+            if (Bank.GetStatus() == Status.LoggedOut)
             {
                 Console.WriteLine("You already logged out.\n");
             }

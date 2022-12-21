@@ -7,7 +7,7 @@ using Banking;
 
 namespace Banking
 {
-    public abstract class SubBank
+    public abstract class SubBank : IExportable
     {
         protected String ISIN = String.Empty;
         protected String name = String.Empty;
@@ -15,31 +15,31 @@ namespace Banking
         protected String country = String.Empty;
         public String GetISIN()
         {
-            return this.ISIN;
+            return ISIN;
         }
         public String GetName()
         {
-            return this.name;
+            return name;
         }
         public String GetAbbreviation()
         {
-            return this.abbreviation;
+            return abbreviation;
         }
         public String GetCountry()
         {
-            return this.country;
+            return country;
         }
         public String GetID()
         {
-            return this.abbreviation.Substring(3,4);
+            return this.abbreviation.Substring(3, 4);
         }
-        public void ExportInformation()
+        void IExportable.ExportInformation()
         {
-            Console.WriteLine("Name: ", this.name);
-            Console.WriteLine("Abbreviation: ", this.abbreviation);
-            Console.WriteLine("ISIN: ", this.ISIN);
-            Console.WriteLine("Country: ", this.country);
-            
+            Console.WriteLine("  Name: ", this.name);
+            Console.WriteLine("  Abbreviation: ", this.abbreviation);
+            Console.WriteLine("  ISIN: ", this.ISIN);
+            Console.WriteLine("  Country: ", this.country);
+
         }
     }
     public class BofA : SubBank

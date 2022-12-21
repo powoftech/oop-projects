@@ -10,7 +10,8 @@ namespace Banking
     {
         static public void Login()
         {
-            if (Bank.GetStatus() == Status.Login)
+            Console.Clear();
+            if (Bank.GetStatus() == Status.LoggedIn)
             {
                 Console.WriteLine("There is a user is logged in!");
 
@@ -34,13 +35,13 @@ namespace Banking
             }
 
             User user = new User();
-            bool continuing;
+            Boolean continuing;
 
             do
             {
                 continuing = false;
                 StringBuilder passwordBuilder = new StringBuilder();
-                bool reading = true;
+                Boolean reading = true;
 
                 System.Console.Write("Enter email: ");
                 user.SetEmail(Console.ReadLine()!);

@@ -10,6 +10,7 @@ namespace Banking
     {
         static public void Register()
         {
+            Console.Clear();
             User newUser = new User();
 
             // Email address
@@ -71,7 +72,7 @@ namespace Banking
 
             // Password
             StringBuilder passwordBuilder = new StringBuilder();
-            bool reading = true;
+            Boolean reading = true;
             Console.Write("Enter password: ");
             while (reading)
             {

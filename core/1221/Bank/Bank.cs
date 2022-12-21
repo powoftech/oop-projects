@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 enum Status
 {
-    Logout,
-    Login
+    LoggedOut,
+    LoggedIn
 }
 
 namespace Banking
@@ -28,12 +28,16 @@ namespace Banking
         static internal Status GetStatus()
         {
             if (currentUser == -1)
-                return Status.Logout;
-            return Status.Login;
+                return Status.LoggedOut;
+            return Status.LoggedIn;
         }
         static internal void SetCurrentUser(Int32 index)
         {
             currentUser = index;
+        }
+        static internal User GetCurrentUser()
+        {
+            return GetUsers()[currentUser];
         }
     }
 }

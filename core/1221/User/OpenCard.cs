@@ -6,12 +6,12 @@ namespace Banking
         {
             Card newCard = new Card();
 
-            bool showMenu = true;
+            Boolean showMenu = true;
 
             while (showMenu)
             {
                 Console.Clear();
-                Console.WriteLine("Choose an sub bank:");
+                Console.WriteLine("Choose a sub bank:");
                 Console.WriteLine("1.  ", BofA.GetInstance().GetName());
                 Console.WriteLine("  a. Get information");
                 Console.WriteLine("2. ", ICBC.GetInstance().GetName());
@@ -44,43 +44,47 @@ namespace Banking
                         newCard.SubBank = BARC.GetInstance();
                         showMenu = false;
                         break;
-                        
+
                     case "a":
                     case "A":
-                        BofA.GetInstance().ExportInformation();
+                        (BofA.GetInstance() as IExportable).ExportInformation();
                         showMenu = true;
+                        Console.ReadKey();
                         break;
 
                     case "b":
                     case "B":
-                        ICBC.GetInstance().ExportInformation();
+                        (ICBC.GetInstance() as IExportable).ExportInformation();
                         showMenu = true;
+                        Console.ReadKey();
                         break;
 
                     case "c":
                     case "C":
-                        SMBC.GetInstance().ExportInformation();
+                        (SMBC.GetInstance() as IExportable).ExportInformation();
                         showMenu = true;
+                        Console.ReadKey();
                         break;
 
                     case "d":
                     case "D":
-                        BARC.GetInstance().ExportInformation();
+                        (BARC.GetInstance() as IExportable).ExportInformation();
                         showMenu = true;
+                        Console.ReadKey();
                         break;
 
                     case "5":
                         Console.WriteLine("Process cancelled!");
                         showMenu = false;
                         return;
-                        
+
                     default:
                         showMenu = true;
                         break;
                 }
             }
             newCard.Implement(this.id);
-            newCard.ExportInformation();
+            (newCard as IExportable).ExportInformation();
             if (newCard.CardNumber != String.Empty)
             {
                 this.cards.Add(newCard);
