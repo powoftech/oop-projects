@@ -12,21 +12,21 @@ namespace Banking
             {
                 Console.Clear();
                 Console.WriteLine("Choose a sub bank:");
-                Console.WriteLine("1.  ", BofA.GetInstance().GetName());
-                Console.WriteLine("  a. Get information");
-                Console.WriteLine("2. ", ICBC.GetInstance().GetName());
-                Console.WriteLine("  b. Get information");
-                Console.WriteLine("3. ", SMBC.GetInstance().GetName());
-                Console.WriteLine("  c. Get information");
-                Console.WriteLine("4. ", BARC.GetInstance().GetName());
-                Console.WriteLine("  d. Get information");
+                Console.WriteLine("1.  " + BofA.GetInstance().GetName());
+                Console.WriteLine("  a. Get bank information");
+                Console.WriteLine("2. " + ICBC.GetInstance().GetName());
+                Console.WriteLine("  b. Get bank information");
+                Console.WriteLine("3. " + SMBC.GetInstance().GetName());
+                Console.WriteLine("  c. Get bank information");
+                Console.WriteLine("4. " + BARC.GetInstance().GetName());
+                Console.WriteLine("  d. Get bank information");
                 Console.WriteLine("5. EXIT");
                 Console.Write("\n\nSelect an option: ");
 
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        newCard.SubBank = BofA.GetInstance();
+                        newCard.SubBank = (BofA)BofA.GetInstance();
                         showMenu = false;
                         break;
 

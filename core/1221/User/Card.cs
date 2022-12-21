@@ -76,10 +76,10 @@ namespace Banking
         // }
         void IExportable.ExportInformation()
         {
-            Console.WriteLine("    Sub bank: ", this.subBank.GetName());
-            Console.WriteLine("    Card number: ", this.cardNumber);
-            Console.WriteLine("    Creation date: ", this.creationDate.ToString("MM/yyyy"));
-            Console.WriteLine("    Expiration date: ", this.expirationDate.ToString("MM/yyyy"));
+            Console.WriteLine("    Sub bank: " + this.subBank.GetName());
+            Console.WriteLine("    Card number: " + this.cardNumber);
+            Console.WriteLine("    Creation date: " + this.creationDate.ToString("MM/yyyy"));
+            Console.WriteLine("    Expiration date: " + this.expirationDate.ToString("MM/yyyy"));
         }
     }
 }

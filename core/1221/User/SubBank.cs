@@ -31,14 +31,14 @@ namespace Banking
         }
         public String GetID()
         {
-            return this.abbreviation.Substring(3, 4);
+            return this.ISIN.Substring(3, 4);
         }
         void IExportable.ExportInformation()
         {
-            Console.WriteLine("  Name: ", this.name);
-            Console.WriteLine("  Abbreviation: ", this.abbreviation);
-            Console.WriteLine("  ISIN: ", this.ISIN);
-            Console.WriteLine("  Country: ", this.country);
+            Console.WriteLine("  Name: "+ this.name);
+            Console.WriteLine("  Abbreviation: "+ this.abbreviation);
+            Console.WriteLine("  ISIN: "+this.ISIN);
+            Console.WriteLine("  Country: "+ this.country);
 
         }
     }
