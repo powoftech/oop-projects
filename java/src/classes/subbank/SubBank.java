@@ -1,6 +1,6 @@
-package SubBank;
+package classes.subbank;
 
-import Interfaces.Exportable;
+import interfaces.Exportable;
 
 public abstract class SubBank implements Exportable, Comparable<SubBank> {
     protected String name = "";
@@ -38,9 +38,14 @@ public abstract class SubBank implements Exportable, Comparable<SubBank> {
 
     @Override
     public int compareTo(SubBank other) {
-        if ((getISIN().compareTo(other.getISIN())) == 0) {
+        if (getISIN().equals(other.getISIN())) {
             return 0;
         }
         return 1;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        return (getISIN().equals(((SubBank) object).getISIN()));
     }
 }

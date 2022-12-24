@@ -1,3 +1,4 @@
+package classes.utility;
 public class ClearConsole {
     public static void execute() {
         try {

@@ -1,4 +1,4 @@
-package SubBank;
+package classes.subbank;
 
 public class ICBC extends SubBank {
     private ICBC() {
@@ -6,7 +6,7 @@ public class ICBC extends SubBank {
         abbreviation = "ICBC";
         ISIN = "CNE1000003G1";
         country = "China";
-        id = ISIN.substring(3, 4);
+        id = ISIN.substring(3, 7);
     }
 
     private static ICBC uniqueInstance = new ICBC();

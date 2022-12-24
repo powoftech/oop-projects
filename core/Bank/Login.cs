@@ -18,7 +18,7 @@ namespace Banking
                 ConsoleKey response;
                 do
                 {
-                    System.Console.Write("Are you sure you want to log out? [y/n] ");
+                    Console.Write("Are you sure you want to log out? [y/n] ");
                     response = Console.ReadKey(false).Key;
                     if (response != ConsoleKey.Enter)
                         Console.WriteLine();
@@ -43,7 +43,7 @@ namespace Banking
                 StringBuilder passwordBuilder = new StringBuilder();
                 Boolean reading = true;
 
-                System.Console.Write("Enter email: ");
+                Console.Write("Enter email: ");
                 user.SetEmail(Console.ReadLine()!);
                 Console.Write("Enter password: ");
                 while (reading)
@@ -73,7 +73,7 @@ namespace Banking
                     ConsoleKey response;
                     do
                     {
-                        System.Console.Write("Do you want to continue? [y/n] ");
+                        Console.Write("Do you want to continue? [y/n] ");
                         response = Console.ReadKey(false).Key;
                         if (response != ConsoleKey.Enter)
                             Console.WriteLine();

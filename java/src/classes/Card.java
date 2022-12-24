@@ -1,9 +1,13 @@
-import java.lang.Math;
+package classes;
 
-import Interfaces.Exportable;
-import SubBank.*;
+import java.lang.Math;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.ThreadLocalRandom;
+
+import interfaces.Exportable;
+import classes.subbank.*;
 
 public class Card implements Exportable {
     private String cardNumber = "";
@@ -49,7 +53,7 @@ public class Card implements Exportable {
 
     public Card(LocalDateTime creationDate) {
         this.creationDate = creationDate;
-        this.expirationDate = creationDate.plusYears(5);
+        this.expirationDate = creationDate.plus(5, ChronoUnit.YEARS);
     }
 
     public Card(LocalDateTime creationDate, SubBank subBank) {
@@ -60,15 +64,15 @@ public class Card implements Exportable {
     private int randomNumberGenerator(int length) {
         int begin = (int) Math.pow(10, length - 1);
         int end = (int) Math.pow(10, length);
-        return (int) Math.random() * (end - begin - 1) + begin;
+        return ThreadLocalRandom.current().nextInt(begin, end);
     }
 
     public void create(String userID) {
         if (this.subBank.compareTo(NullObject.getInstance()) != 0) {
-            this.cardNumber = "4" + userID.substring(0, userID.length() - 3) + randomNumberGenerator(8)
+            this.cardNumber = "4" + userID.substring(1, 4) + randomNumberGenerator(8)
                     + subBank.getID();
             this.creationDate = LocalDateTime.now();
-            this.expirationDate = creationDate.plusYears(5);
+            this.expirationDate = this.creationDate.plus(5, ChronoUnit.YEARS);
         }
     }
 
@@ -78,6 +82,6 @@ public class Card implements Exportable {
         System.out.println("    Sub bank: " + this.subBank.getName());
         System.out.println("    Card number: " + this.cardNumber);
         System.out.println("    Creation date: " + uniqueFormatter.format(creationDate));
-        System.out.println("    Expiration date: " + uniqueFormatter.format(creationDate));
+        System.out.println("    Expiration date: " + uniqueFormatter.format(expirationDate));
     }
 }

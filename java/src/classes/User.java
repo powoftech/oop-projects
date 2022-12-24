@@ -1,14 +1,21 @@
-import java.util.*;
-import java.time.*;
-import SubBank.*;
-import Interfaces.*;
+package classes;
 
-enum Permission {
-    Default,
-    Administrator
-}
+import interfaces.*;
+import classes.subbank.*;
+import classes.utility.ClearConsole;
+import classes.utility.DateFormatter;
+import classes.utility.RegexUtilities;
+
+import java.util.*;
+import java.text.DecimalFormat;
+import java.time.*;
 
 public class User implements Comparable<User>, Exportable {
+    public enum Permission {
+        Default,
+        Administrator
+    }
+
     private String id = "";
     private String name = "";
     private LocalDate dateOfBirth = LocalDate.MIN;
@@ -116,13 +123,12 @@ public class User implements Comparable<User>, Exportable {
         this.registrationDate = LocalDateTime.now();
     }
 
-    public void Deposit() {
+    public void deposit() {
         ClearConsole.execute();
         String doubleString = "";
         double depositAmount = Double.MIN_VALUE;
         do {
-            System.out.println("Enter the deposit amount: ");
-            doubleString = System.console().readLine();
+            doubleString = System.console().readLine("Enter the deposit amount: ");
             if (!RegexUtilities.isValidDouble(doubleString)) {
                 System.out.println("Retry...");
             } else {
@@ -136,13 +142,12 @@ public class User implements Comparable<User>, Exportable {
         System.out.println("Deposit successfully!");
     }
 
-    public void Withdraw() {
+    public void withdraw() {
         ClearConsole.execute();
         String doubleString = "";
         double withdrawAmount = Double.MIN_VALUE;
         do {
-            System.out.println("Enter the withdraw amount: ");
-            doubleString = System.console().readLine();
+            doubleString = System.console().readLine("Enter the withdraw amount: ");
             if (!RegexUtilities.isValidDouble(doubleString)) {
                 System.out.println("Retry...");
             } else {
@@ -172,32 +177,24 @@ public class User implements Comparable<User>, Exportable {
     }
 
     public void exportInformation() {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.##");
+
         System.out.println("  ID: " + this.id);
         System.out.println("  Name: " + this.name);
         System.out.println("  Email address: " + this.email);
         System.out.println("  Date of birth: " + DateFormatter.getFormatter().format(this.dateOfBirth));
-        System.out.println("  Account balance: " + this.balance);
+        System.out.println("  Account balance: " + decimalFormat.format(this.balance));
         System.out.println("  Registration date: " + DateFormatter.getFormatter().format(this.registrationDate));
         if (this.cards.size() == 0) {
             System.out.println("  *This user doesn't have any cards yet!");
         } else {
             int index = 0;
 
-            System.out.println("  Export cards' information... ");
             for (Card card : cards) {
                 System.out.println("   Card #" + (++index) + ": ");
                 card.exportInformation();
             }
         }
-    }
-
-    @Override
-    public int compareTo(User other) {
-        if (this.getEmail().compareTo(other.getEmail()) == 0
-                && this.getPassword().compareTo(other.getPassword()) == 0) {
-            return 0;
-        }
-        return 1;
     }
 
     public void openCard() {
@@ -217,9 +214,8 @@ public class User implements Comparable<User>, Exportable {
             System.out.println("4. " + BARC.getInstance().getName());
             System.out.println("  d. Get bank information");
             System.out.println("5. EXIT");
-            System.out.print("\n\nSelect an option: ");
 
-            switch (System.console().readLine()) {
+            switch (System.console().readLine("\n\nSelect an option: ")) {
                 case "1":
                     showMenu = false;
                     newCard.setSubBank(BofA.getInstance());
@@ -244,28 +240,28 @@ public class User implements Comparable<User>, Exportable {
                 case "A":
                     showMenu = true;
                     BofA.getInstance().exportInformation();
-                    System.console().readLine();
+                    System.console().readPassword();
                     break;
 
                 case "b":
                 case "B":
                     showMenu = true;
                     ICBC.getInstance().exportInformation();
-                    System.console().readLine();
+                    System.console().readPassword();
                     break;
 
                 case "c":
                 case "C":
                     showMenu = true;
                     SMBC.getInstance().exportInformation();
-                    System.console().readLine();
+                    System.console().readPassword();
                     break;
 
                 case "d":
                 case "D":
                     showMenu = true;
                     BARC.getInstance().exportInformation();
-                    System.console().readLine();
+                    System.console().readPassword();
                     break;
 
                 case "5":
@@ -283,8 +279,25 @@ public class User implements Comparable<User>, Exportable {
 
         if (!newCard.getCardNumber().isEmpty() && !newCard.getCardNumber().isBlank() && newCard != null) {
             this.cards.add(newCard);
-            System.out.println("Created successfully!");
+            System.out.println("\nCreated successfully!");
         }
+    }
 
+    @Override
+    public int compareTo(User other) {
+        if (this.getEmail().equalsIgnoreCase(other.getEmail())
+                && this.getPassword().equals(other.getPassword())) {
+            return 0;
+        }
+        return 1;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof User))
+            return false;
+
+        return this.getEmail().equalsIgnoreCase(((User) object).getEmail())
+                && this.getPassword().equals(((User) object).getPassword());
     }
 }

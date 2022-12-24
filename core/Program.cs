@@ -12,7 +12,7 @@ namespace Banking
         {
             Bank.GetUsers().Add(new User("0000", "Administrator", "01/01/2003", 123400000, "admin@gmail.com", "Admin", Permission.Administrator));
             Bank.GetUsers().Add(new User("0001", "Phuong Dang", "04/10/2003", 3000000, "phuong@gmail.com", "Phuong", Permission.Default));
-            Bank.GetUsers().Add(new User("0002", "Tai Ong", "01/01/2003", 4000000, "tai@gmail.com", "Phuong", Permission.Default));
+            Bank.GetUsers().Add(new User("0002", "Tai Ong", "01/01/2003", 4000000, "tai@gmail.com", "Tai", Permission.Default));
 
             Boolean showMenu = true;
 
@@ -115,8 +115,9 @@ namespace Banking
 
                     case "A":
                     case "a":
-                        if (Bank.GetStatus() == Status.LoggedIn || Bank.GetCurrentUser().GetPermission() == Permission.Administrator)
+                        if (Bank.GetStatus() == Status.LoggedIn && Bank.GetCurrentUser().GetPermission() == Permission.Administrator)
                         {
+                            Console.Clear();
                             Int32 index = 0;
                             Bank.GetUsers().ForEach(delegate (User user)
                             {
@@ -132,7 +133,6 @@ namespace Banking
                     case "e":
                         showMenu = false;
                         Console.WriteLine("Exiting...");
-
                         break;
 
                     default:
@@ -140,7 +140,7 @@ namespace Banking
                         break;
 
                 }
-                Console.Write("\nPress any key to continue...");
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey(false);
 
 

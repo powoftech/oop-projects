@@ -1,4 +1,4 @@
-package SubBank;
+package classes.subbank;
 
 public class NullObject extends SubBank {
     private NullObject() {

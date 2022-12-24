@@ -1,4 +1,4 @@
-package SubBank;
+package classes.subbank;
 
 public class BARC extends SubBank {
     private BARC() {
@@ -6,7 +6,7 @@ public class BARC extends SubBank {
         abbreviation = "BARC";
         ISIN = "GB0031348658";
         country = "United Kingdom";
-        id = ISIN.substring(3, 4);
+        id = ISIN.substring(3, 7);
     }
 
     private static BARC uniqueInstance = new BARC();

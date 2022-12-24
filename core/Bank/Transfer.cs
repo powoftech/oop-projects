@@ -56,6 +56,7 @@ namespace Banking
                             {
                                 beneficiaryIndex = user.index;
                                 newTransaction.Beneficiary = beneficiaryName;
+                                break;
                             }
                         }
                         if (beneficiaryIndex == Int32.MinValue)
@@ -83,7 +84,6 @@ namespace Banking
                                 Console.WriteLine("Cannot transfer to yourselves!\nRetry...");
                                 beneficiaryID = String.Empty;
                                 conflicted = true;
-                                Console.ReadKey(false);
                             }
                         } while (conflicted);
 
@@ -93,6 +93,7 @@ namespace Banking
                             {
                                 beneficiaryIndex = user.index;
                                 newTransaction.Beneficiary = beneficiaryID;
+                                break;
                             }
                         }
                         if (beneficiaryIndex == Int32.MinValue)
@@ -114,14 +115,15 @@ namespace Banking
 
                         foreach (var user in Bank.GetUsers().Select((value, index) => (value, index)))
                         {
-                            user.value.GetCards().ForEach(delegate (Card card)
+                            foreach (var card in user.value.GetCards())
                             {
                                 if (card.CardNumber == beneficiaryCardNumber)
                                 {
                                     beneficiaryIndex = user.index;
                                     newTransaction.Beneficiary = beneficiaryCardNumber;
+                                    break;
                                 }
-                            });
+                            }
                         }
                         if (beneficiaryIndex == Int32.MinValue)
                         {
@@ -144,10 +146,8 @@ namespace Banking
                         Console.WriteLine("\nInvalid input!\nTry again...");
                         showMenu = true;
                         Console.ReadKey(false);
-
                         break;
                 }
-
             }
 
             Double transferAmount = Double.MinValue;
