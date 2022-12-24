@@ -137,14 +137,6 @@ namespace Banking
         {
         }
 
-        public void Input()
-        {
-            //this.sName = Console.ReadLine();
-            //this.sID = Console.ReadLine();
-            //string tmp = Console.ReadLine();
-            //this.daBirthday = Convert.ToDateTime(tmp);
-            //this.dAccountBalance = double.Parse(Console.ReadLine());
-        }
         public void ExportInformation()
         {
             Console.WriteLine($"  ID: {this.id}");
@@ -165,7 +157,7 @@ namespace Banking
             }
             else
             {
-                Console.WriteLine("  *This user doesn't have any card yet!");
+                Console.WriteLine("  *This user doesn't have any cards yet!");
             }
         }
 

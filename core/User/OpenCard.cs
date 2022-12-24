@@ -26,7 +26,7 @@ namespace Banking
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        newCard.SubBank = (BofA)BofA.GetInstance();
+                        newCard.SubBank = BofA.GetInstance();
                         showMenu = false;
                         break;
 

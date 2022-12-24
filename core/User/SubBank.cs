@@ -35,10 +35,10 @@ namespace Banking
         }
         void IExportable.ExportInformation()
         {
-            Console.WriteLine("  Name: "+ this.name);
-            Console.WriteLine("  Abbreviation: "+ this.abbreviation);
-            Console.WriteLine("  ISIN: "+this.ISIN);
-            Console.WriteLine("  Country: "+ this.country);
+            Console.WriteLine("  Name: " + this.name);
+            Console.WriteLine("  Abbreviation: " + this.abbreviation);
+            Console.WriteLine("  ISIN: " + this.ISIN);
+            Console.WriteLine("  Country: " + this.country);
 
         }
     }

@@ -48,13 +48,6 @@ namespace Banking
         {
         }
 
-        public void Input(Double amount, String beneficiary, String type)
-        {
-            this.date = DateTime.Now;
-            this.amount = amount;
-            this.beneficiary = beneficiary;
-            this.type = type;
-        }
         void IExportable.ExportInformation()
         {
             Console.WriteLine($"  Date: {this.Date.ToString()}");
